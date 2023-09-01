@@ -2,7 +2,8 @@
 .Layout{
     display: flex;
     flex-direction: row;
-    height:100vh; /* Make the layout take up the full viewport height */
+    min-height:100vh; /* Make the layout take up the full viewport height */
+    position:relative;
     background-color: #f4f4f4;
 
     .Layout-header{
@@ -29,6 +30,19 @@
 
         .Nav-link:hover{
             color:#FFFDD0; /* cream */
+        }
+    }
+
+    .Layout-footer{
+        position:absolute;
+        bottom: 0; /* make the footer stick at the bottom */
+        left:0; /* make the text align at the center */
+        right:0; 
+        text-align: center;
+        padding: 5px;
+
+        a{
+            text-decoration: none;
         }
     }
 }

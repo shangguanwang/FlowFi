@@ -47,6 +47,9 @@ export const Layout = () => {
             <main className="Layout-main">
                 <Outlet />
             </main>
+            <footer className="Layout-footer">
+                <span>FlowFi v.0.0.0 @2023 | Built by <a href="https://github.com/shangguanwang" target="_blank">Shangguan Wang</a></span>
+            </footer>
         </div>
     </>
   )
