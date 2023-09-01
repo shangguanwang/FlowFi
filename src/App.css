@@ -1,0 +1,13 @@
+.App {
+    overflow: hidden; /* prevent overflow */
+    display: flex;
+    width: 100%;
+}
+
+.subpage {
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+  }
