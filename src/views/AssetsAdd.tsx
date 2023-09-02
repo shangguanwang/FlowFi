@@ -1,14 +1,9 @@
 import React, { useState }  from 'react'
 import './AssetsAdd.styles.scss'
+import { AssetsFormType } from '../state/types'
 import { useNavigate } from 'react-router-dom';
 import { addData } from '../api/firebase'
 
-// Define an interface for the assetFormData object
-interface AssetsFormType {
-    assetName: string;
-    assetAmount: number;
-    assetType: string;
-  }
 export const AssetsAdd = () => {
     const [formData, setFormData] = useState<AssetsFormType>({
         assetName: '',
