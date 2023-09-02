@@ -52,11 +52,12 @@ export const AssetsAdd = () => {
         <select id="assetType" name="assetType"
         value={formData.assetType}
         onChange={handleAdd} >
-          <option value="cash">Cash</option>
-          <option value="checking">Checking</option>
-          <option value="saving">Saving</option>
-          <option value="stocks">Stocks</option>
-          <option value="crypto">Crypto</option>
+          <option value="Cash">Cash</option>
+          <option value="Checking">Checking</option>
+          <option value="Saving">Saving</option>
+          <option value="Stocks">Stocks</option>
+          <option value="Crypto">Crypto</option>
+          <option value="Other">Other</option>
         </select>
         <button type="submit">Save</button>
       </form>
