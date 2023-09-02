@@ -4,6 +4,7 @@ import { getData } from '../api/firebase';
 import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams } from '@mui/x-data-grid';
 import { AssetsFormType } from '../state/types'
+import {calculateAssetTotal} from '../components/functions/functions'
 
 interface AssetsColumnType{
   field:string;
@@ -15,7 +16,7 @@ interface AssetsColumnType{
 export const Assets = () => {
   const [assetsData, setAssetsData] = useState<AssetsFormType[]>([]); // an array of objects
   //calculate assets total
-  const totalAmount:number = assetsData.reduce((acc, item)=> acc+item.assetAmount,0)
+  const totalAmount = calculateAssetTotal(assetsData);
   
   // prepare columns for Data Grid Table
   const assetsColumns:AssetsColumnType[] = [
