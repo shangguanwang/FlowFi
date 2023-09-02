@@ -7,9 +7,10 @@ FlowFi is a personal financial planner that allows users to monitor their financ
 ## Features 🌟
 
 - Home Dashboard - overview
-- Assets - track assets by total amounts and types
-- Debt - manage debt by total amounts and types
-- Income and Expenses tracker
+- Assets - track assets by total amount and types
+- Debt - manage debt by total amount and types
+- Income - plan monthly income
+- Expenses - record monthly spending
 
 ## Built with 🛠️
 
