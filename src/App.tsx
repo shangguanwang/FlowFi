@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd} from './views';
+import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing} from './views';
 
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          <Route path="landing" element={<Landing />}/>
           <Route path="/" element={<Layout />}>
               <Route index element={<Home/>}/>
               <Route path="/assets" element={<Assets/>}/>

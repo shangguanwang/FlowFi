@@ -1,9 +1,8 @@
 import React from 'react'
 import { Outlet, NavLink } from 'react-router-dom'
 import './Layout.styles.scss'
-
+import Logo from '../components/Logo';
 // import icons from Material UI
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import HomeIcon from '@mui/icons-material/Home';
 import SavingsIcon from '@mui/icons-material/Savings';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -15,10 +14,7 @@ export const Layout = () => {
     <>
         <div className="Layout">
             <header className="Layout-header">
-                <div className="Layout-header-heading">
-                    <AutoGraphIcon fontSize="large"/> 
-                    <h1>FlowFi</h1>
-                </div>
+                <Logo />
                 <nav className="Nav">
                     <div className="Nav-container">
                         <NavLink to="/" className="Nav-link">

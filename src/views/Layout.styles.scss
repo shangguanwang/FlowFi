@@ -11,14 +11,10 @@
         color:white;
         padding: 8px 16px;
         width:200px;
-        .Layout-header-heading {
-            display: flex;
-            align-items: center;
-            gap:2px;
-        }
     }
 
     .Nav{
+        margin-left: 1rem;
         .Nav-link{
             text-decoration: none;
             color:white;
