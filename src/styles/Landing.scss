@@ -5,14 +5,15 @@
     display: flex;
     
     .landing-info {
-        margin-left: 4rem;
+        margin-left: 5rem;
         margin-right: 2rem;
-        margin-top: 10rem;
-        max-width: 450px;
+        margin-top: 7rem;
+        max-width: 400px;
         p{
             color: #485568;
             font-size: larger;
         }
+
         /* Style the Link component as a button */
         .btn {
         display: inline-block;
