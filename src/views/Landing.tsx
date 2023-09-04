@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../components/Logo';
 import '../styles/Landing.scss'
 import { Link } from 'react-router-dom';
 import landingImg from '../assets/landing-image-transparent.png'
 // Material UI
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import {
+    OutlinedInput,
+    InputLabel,
+    FormHelperText,
+  } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -16,6 +19,30 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../features/auth/authSlice';
 
 export const Landing = () => {
+    // Initialize state
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+
+    // Handle email change
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    }
+    // Email format validation
+    const isValidEmail = (email:string) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailRegex.test(email)
+    }
+
+    // useEffect watches for changes in email state and update the emailError state accordingly
+    useEffect(() => {
+        if(!isValidEmail(email)){
+            setEmailError("Email is invalid")
+        }else{
+            setEmailError("")
+        } //have to have the else state here so the error message disappears when the user types the correct email
+    }, [email])
+
+    // Dispatch
     const dispatch = useDispatch();
     // Submit the email and password
     const handleSubmit = (e: React.FormEvent) => {
@@ -44,7 +71,8 @@ export const Landing = () => {
             <p> Your all-in-one solution for tracking your wealth portfolio and monthly cash flow. </p>
             <form onSubmit={handleSubmit}>
                 <InputLabel htmlFor="email" shrink={false}>Email </InputLabel>
-                <OutlinedInput id="email" name="email" fullWidth required/>
+                <OutlinedInput id="email" name="email" value={email} onChange={handleEmailChange} fullWidth required/>
+                <FormHelperText error className="helper-text">{email.length > 0 && emailError}</FormHelperText>
                 <InputLabel htmlFor="password" shrink={false}>Password </InputLabel>
                 <OutlinedInput id="password" name="password" fullWidth required
                 type={showPassword? 'text': 'password'}
