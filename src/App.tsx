@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing} from './views';
+import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing, Register} from './views';
 import { useSelector } from 'react-redux';
 import { RootState } from './state/types';
 
@@ -23,7 +23,10 @@ function App() {
               <Route path="/income" element={<Income/>}/>
               <Route path="/expenses" element={<Expenses/>}/>
           </Route>):
-          (<Route path="/" element={<Landing />}/>)
+          (<>
+          <Route path="/" element={<Landing />}/>
+            <Route path="/register" element={<Register />}/>
+            </> )
         }
         </Routes>
       </Router>

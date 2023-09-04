@@ -1,4 +1,5 @@
 export * from "./Landing";
+export * from "./Register";
 export * from "./Layout";
 export * from "./Home";
 export * from "./Assets";
