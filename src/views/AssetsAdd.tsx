@@ -4,6 +4,12 @@ import { AssetsFormType } from '../state/types'
 import { useNavigate } from 'react-router-dom';
 import { addData } from '../api/firebase'
 
+// Import MUI 
+import { InputLabel } from '@mui/material';
+// Import Components
+import FormRow from '../components/FormRow';
+import SubmitButton from '../components/layout/SubmitButton';
+
 export const AssetsAdd = () => {
     const [formData, setFormData] = useState<AssetsFormType>({
         assetName: '',
@@ -36,19 +42,10 @@ export const AssetsAdd = () => {
     <div className="subpage">
     <h1>Add Assets</h1>
     <form className="Assets-form" onSubmit={handleSubmit}>
-        <label htmlFor="assetName">Name</label>
-        <input type="text" id="assetName" name="assetName" 
-        value={formData.assetName} 
-        onChange={handleAdd}
-        required></input>
-        
-        <label htmlFor="assetAmount">Amount</label>
-        <input type="number" id="assetAmount" name="assetAmount"
-        value={formData.assetAmount} 
-        onChange={handleAdd}
-        required></input>
+      <FormRow type="text" name="assetName" value={formData.assetName} handleChange={handleAdd} textLabel="Name"/>   
+      <FormRow type="number" name="assetAmount" value={formData.assetAmount} handleChange={handleAdd} textLabel="Amount"/>
 
-        <label htmlFor="assetType">Type</label>
+        <InputLabel htmlFor="assetType" shrink={false}>Type</InputLabel>
         <select id="assetType" name="assetType"
         value={formData.assetType}
         onChange={handleAdd} >
@@ -59,7 +56,7 @@ export const AssetsAdd = () => {
           <option value="Crypto">Crypto</option>
           <option value="Other">Other</option>
         </select>
-        <button type="submit">Save</button>
+        <SubmitButton textLabel="Save" />
       </form>
     </div>
   )

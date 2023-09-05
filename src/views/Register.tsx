@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { LandingLayout } from '../components/layout/LandingLayout'
 import { Link } from 'react-router-dom'
+// Import Components
+import { LandingLayout } from '../components/layout/LandingLayout'
 import { isValidEmail } from '../components/functions/functions';
 import FormRow from '../components/FormRow';
+import SubmitButton from '../components/layout/SubmitButton';
+
 // Material UI
 import {
     OutlinedInput,
     InputLabel,
     FormHelperText,
     IconButton,
-    Button,
     InputAdornment
   } from '@mui/material';
 
@@ -86,8 +88,8 @@ export const Register = () => {
                         </IconButton>
                     </InputAdornment>
                 }/>
-                <FormRow name="name" value={userInfo.name} handleChange={handleChange} textLabel="Name"></FormRow>
-                <Button className="btn" type="submit" variant="contained" fullWidth sx={{mt:3, mb:2}}>CREATE ACCOUNT</Button>
+                <FormRow type="text" name="name" value={userInfo.name} handleChange={handleChange} textLabel="Name" />
+                <SubmitButton textLabel="CREATE ACCOUNT" />
             </form>
         <Link to='/'>Already have an account? Log In</Link>
     </LandingLayout>

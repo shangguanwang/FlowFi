@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { LandingLayout } from '../components/layout/LandingLayout';
 import '../styles/Landing.scss'
 import { Link } from 'react-router-dom';
+
+// Import Components
+import { LandingLayout } from '../components/layout/LandingLayout';
 import { isValidEmail } from '../components/functions/functions';
+import SubmitButton from '../components/layout/SubmitButton';
 // Material UI
 import {
     OutlinedInput,
     InputLabel,
     FormHelperText,
     IconButton,
-    Button,
     InputAdornment
   } from '@mui/material';
 
@@ -78,7 +80,7 @@ export const Landing = () => {
                         </IconButton>
                     </InputAdornment>
                 }/>
-                <Button className="btn" type="submit" variant="contained" fullWidth sx={{mt:3, mb:2}}>SIGN IN</Button>
+                <SubmitButton textLabel="SIGN IN" />
             </form>
             <Link to='/register'>Don't have an account? Sign up</Link>
     </LandingLayout> 
