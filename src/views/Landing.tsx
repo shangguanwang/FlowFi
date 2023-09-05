@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Logo from '../components/Logo';
+import { LandingLayout } from '../components/layout/LandingLayout';
 import '../styles/Landing.scss'
 import { Link } from 'react-router-dom';
-import landingImg from '../assets/landing-image-transparent.png'
 // Material UI
 import {
     OutlinedInput,
@@ -61,14 +60,7 @@ export const Landing = () => {
       };
 
   return (
-    <div className='landing-container'>
-    <div>
-        <nav>
-        <Logo />
-        </nav>
-        <div className='landing-info'>
-            <h1>Managing Your Financial Well-being, at Anytime</h1>
-            <p> Your all-in-one solution for tracking your wealth portfolio and monthly cash flow. </p>
+    <LandingLayout> 
             <form onSubmit={handleSubmit}>
                 <InputLabel htmlFor="email" shrink={false}>Email </InputLabel>
                 <OutlinedInput id="email" name="email" value={email} onChange={handleEmailChange} fullWidth required/>
@@ -90,9 +82,7 @@ export const Landing = () => {
                 <Button className="btn" type="submit" variant="contained" fullWidth sx={{mt:3, mb:2}}>SIGN IN</Button>
             </form>
             <Link to='/register'>Don't have an account? Sign up</Link>
-        </div>
-    </div>
-     <img src={landingImg} alt='financial-dashboard-illustration' className='landing-img'/>
-    </div>
+    </LandingLayout> 
+   
   )
 };

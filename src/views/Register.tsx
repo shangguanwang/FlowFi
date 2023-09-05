@@ -1,9 +1,12 @@
 import React from 'react'
+import { LandingLayout } from '../components/layout/LandingLayout'
+import { Link } from 'react-router-dom'
 
 export const Register = () => {
   return (
-    <div>
+    <LandingLayout>
         Register
-    </div>
+        <Link to='/'>Already have an account? Log In</Link>
+    </LandingLayout>
   )
 }
