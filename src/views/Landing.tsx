@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { LandingLayout } from '../components/layout/LandingLayout';
 import '../styles/Landing.scss'
 import { Link } from 'react-router-dom';
+import { isValidEmail } from '../components/functions/functions';
 // Material UI
 import {
     OutlinedInput,
     InputLabel,
     FormHelperText,
+    IconButton,
+    Button,
+    InputAdornment
   } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Button from "@mui/material/Button";
-import InputAdornment from '@mui/material/InputAdornment';
+
+import {Visibility,VisibilityOff} from '@mui/icons-material';
+
+
 // Redux
 import { useDispatch } from 'react-redux';
 import { authActions } from '../features/auth/authSlice';
@@ -26,11 +29,7 @@ export const Landing = () => {
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     }
-    // Email format validation
-    const isValidEmail = (email:string) => {
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return emailRegex.test(email)
-    }
+
 
     // useEffect watches for changes in email state and update the emailError state accordingly
     useEffect(() => {
@@ -62,7 +61,7 @@ export const Landing = () => {
   return (
     <LandingLayout> 
             <form onSubmit={handleSubmit}>
-                <InputLabel htmlFor="email" shrink={false}>Email </InputLabel>
+                <InputLabel htmlFor="email" shrink={false}>Email</InputLabel>
                 <OutlinedInput id="email" name="email" value={email} onChange={handleEmailChange} fullWidth required/>
                 <FormHelperText error className="helper-text">{email.length > 0 && emailError}</FormHelperText>
                 <InputLabel htmlFor="password" shrink={false}>Password </InputLabel>
