@@ -1,5 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { RootState } from '../../redux/store';
 
 interface pieDataType{
   name:string;
@@ -7,22 +9,19 @@ interface pieDataType{
   fill:string;
 }
 
-const colors = ['#FF5733', '#FFC300', '#4CAF50', '#2196F3', '#9C27B0'];
-//test data
-const data:pieDataType[] = [
-  {name: "Citi", value:500, fill: colors[0]},
-  {name:"Coinbase", value: 200, fill: colors[1]},
-  {name:"Cold Wallet", value:100, fill:colors[2]}
-]
+const colors = ['#2B0B3F', '#57167E', '#9B3192', '#EA5F89', '#F7B7A3', '#FFF1C9'];
 
 // takes a data prop which is an array of objects with key name and value
 const PieCharts = () => {
+  const assetsData = useSelector((store: RootState)=>store.assets);
+  const chartData = assetsData.map((item,index)=>({name:item['assetName'], value:item['assetAmount'], fill:colors[index]}));
+  
   return (
     <>
     <ResponsiveContainer width={700} height={500} >
     <PieChart width={400} height={400}>
       <Pie
-        data={data}
+        data={chartData}
         cx="50%"
         cy="50%"
         innerRadius={60}
@@ -31,8 +30,8 @@ const PieCharts = () => {
         dataKey="value"
         label={({ name, percent }) => `${name} ${(percent * 100).toFixed(2)}%`}
       />
-      {data.map((item,index)=>(
-        <Cell key={`cell-${index}`} fill={colors[index]}/>
+      {chartData.map((item,index)=>(
+        <Cell key={`cell-${index}`} fill={colors[index%colors.length]}/>
       ))}
     </PieChart>
   </ResponsiveContainer>
