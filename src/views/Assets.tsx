@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getData } from '../api/firebase';
 import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams } from '@mui/x-data-grid';
-import { AssetsFormType } from '../state/types'
-import {calculateAssetTotal} from '../components/functions/functions'
+import { AssetsFormType } from '../state/types';
+import {calculateAssetTotal} from '../components/functions/functions';
+import { RootState } from '../redux/store';
+
+//import redux
+import { setAssetsData } from '../redux/assetsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface AssetsColumnType{
   field:string;
@@ -14,7 +19,9 @@ interface AssetsColumnType{
 }
 
 export const Assets = () => {
-  const [assetsData, setAssetsData] = useState<AssetsFormType[]>([]); // an array of objects
+  const dispatch = useDispatch();
+  //const [assetsData, setAssetsData] = useState<AssetsFormType[]>([]); // an array of objects
+  const assetsData = useSelector((store: RootState)=>store.assets);
   //calculate assets total
   const totalAmount = calculateAssetTotal(assetsData);
   
@@ -45,11 +52,11 @@ export const Assets = () => {
         ...item,
         assetAmount: Number(item.assetAmount), // ensure Amount has type number
       }))
-      setAssetsData(formattedData);
+      //setAssetsData(formattedData);
+      dispatch(setAssetsData(formattedData));
     };
-
     fetchData();
-  },[])
+  },[dispatch])
 
   return (
     <div className="subpage">
@@ -57,7 +64,7 @@ export const Assets = () => {
       <Link to="/assets/add">
         <button>+ Add Asset</button>
       </Link>
-      <p>Net Assets: ${totalAmount}</p>
+      <p>Net Assets: ${totalAmount}</p> 
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
         <DataGrid autoHeight rows={assetsData} columns={assetsColumns}
         hideFooter={true}/>
