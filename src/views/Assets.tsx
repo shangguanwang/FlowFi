@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getData, deleteData } from '../api/firebase';
 import { AssetsFormType} from '../state/types';
 import {calculateAssetTotal} from '../components/functions/functions';
@@ -10,7 +10,7 @@ import { setAssetsData } from '../redux/assetsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 //import MUI
 import Box from '@mui/material/Box';
-import { DataGrid, GridCellParams, GridActionsCellItem, GridRowParams } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridActionsCellItem, GridRowParams} from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -20,11 +20,13 @@ interface AssetsColumnType{
   width: number;
   renderCell?:(params:GridCellParams)=>string;
   type?: string;
+  editable?: boolean;
   getActions?: (params: GridRowParams) => JSX.Element[];
 }
 
 export const Assets = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const assetsData = useSelector((store: RootState)=>store.assets);
   //calculate assets total
   const totalAmount = calculateAssetTotal(assetsData);
@@ -38,41 +40,53 @@ export const Assets = () => {
   }
   //define an edit function
   const handleEdit = (id:string) => {
-    console.log("Edit");
+    const assetToEdit = assetsData.find((asset)=>asset["id"] === id);
+
+    if(assetToEdit){
+      navigate(`/assets/edit/${id}`, {state: assetToEdit});
+    }
   }
+
   // prepare columns for Data Grid Table
   const assetsColumns:AssetsColumnType[] = [
     {
       field: "assetName",
       headerName: "Name",
-      width: 150
+      width: 150,
+      editable: true,
     },
     {
       field: "assetAmount",
       headerName: "Amount",
       width: 150,
+      editable: true,
       renderCell: (params: GridCellParams)=> `$${params.value}`, //add a dollar sign
     },
     {
       field: "assetType",
       headerName: "Type",
       width: 150,
+      editable: true,
     },
     {field: "actions",
     headerName: "Actions",
     type:"actions",
-    width: 150,
-     getActions: (params) => [
+    width: 100,
+     getActions: (params) => {
+      const id = String(params.id);
+
+      return[
       <GridActionsCellItem
       icon={<EditIcon />}
       label="Edit"
-      onClick={()=>handleEdit(String(params.id))}
+      onClick={()=>handleEdit(id)}
     />,
       <GridActionsCellItem
         icon={<DeleteIcon />}
         label="Delete"
-        onClick={()=>handleDelete(String(params.id))}
-    />]
+        onClick={()=>handleDelete(id)}
+    />  ]
+      }
     }
   ]
 
@@ -98,8 +112,7 @@ export const Assets = () => {
       </Link>
       <p>Net Assets: ${totalAmount}</p> 
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
-        <DataGrid autoHeight rows={assetsData} columns={assetsColumns}
-        hideFooter={true}/>
+        <DataGrid autoHeight rows={assetsData} columns={assetsColumns} hideFooter={true}/>
       </Box>
     </div>
   )

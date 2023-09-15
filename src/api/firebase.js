@@ -4,6 +4,7 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "./config.js";
 
@@ -47,3 +48,12 @@ export const deleteData = async (id, collectionName) => {
     console.error("Error deleting asset:", error);
   }
 };
+
+export const editData = async (id, collectionName, newData) => {
+  try {
+    const docRef = doc(db, "users", "testuser", collectionName, id);
+    await setDoc(docRef, newData, {merge:true}); //update the existing row with new data
+  } catch (error) {
+    console.error("Error updating asset:", error);
+  }
+}
