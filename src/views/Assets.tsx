@@ -25,7 +25,6 @@ interface AssetsColumnType{
 
 export const Assets = () => {
   const dispatch = useDispatch();
-  //const [assetsData, setAssetsData] = useState<AssetsFormType[]>([]); // an array of objects
   const assetsData = useSelector((store: RootState)=>store.assets);
   //calculate assets total
   const totalAmount = calculateAssetTotal(assetsData);
@@ -36,6 +35,10 @@ export const Assets = () => {
     // delete the row from data grid
     const updatedAssets = assetsData.filter((asset)=>asset["id"] !== id);
     dispatch(setAssetsData(updatedAssets));
+  }
+  //define an edit function
+  const handleEdit = (id:string) => {
+    console.log("Edit");
   }
   // prepare columns for Data Grid Table
   const assetsColumns:AssetsColumnType[] = [
@@ -60,10 +63,15 @@ export const Assets = () => {
     type:"actions",
     width: 150,
      getActions: (params) => [
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={()=>handleDelete(String(params.id))}
+      <GridActionsCellItem
+      icon={<EditIcon />}
+      label="Edit"
+      onClick={()=>handleEdit(String(params.id))}
+    />,
+      <GridActionsCellItem
+        icon={<DeleteIcon />}
+        label="Delete"
+        onClick={()=>handleDelete(String(params.id))}
     />]
     }
   ]
@@ -96,4 +104,3 @@ export const Assets = () => {
     </div>
   )
 }
-
