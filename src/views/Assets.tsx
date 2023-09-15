@@ -1,21 +1,26 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getData } from '../api/firebase';
-import Box from '@mui/material/Box';
-import { DataGrid, GridCellParams } from '@mui/x-data-grid';
-import { AssetsFormType } from '../state/types';
+import { getData, deleteData } from '../api/firebase';
+import { AssetsFormType} from '../state/types';
 import {calculateAssetTotal} from '../components/functions/functions';
-import { RootState } from '../redux/store';
 
 //import redux
+import { RootState } from '../redux/store';
 import { setAssetsData } from '../redux/assetsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+//import MUI
+import Box from '@mui/material/Box';
+import { DataGrid, GridCellParams, GridActionsCellItem, GridRowParams } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 interface AssetsColumnType{
   field:string;
   headerName:string;
   width: number;
   renderCell?:(params:GridCellParams)=>string;
+  type?: string;
+  getActions?: (params: GridRowParams) => JSX.Element[];
 }
 
 export const Assets = () => {
@@ -24,7 +29,14 @@ export const Assets = () => {
   const assetsData = useSelector((store: RootState)=>store.assets);
   //calculate assets total
   const totalAmount = calculateAssetTotal(assetsData);
-  
+
+  //define a delete function
+  const handleDelete = (id:string) => {
+    deleteData(id, "assets");
+    // delete the row from data grid
+    const updatedAssets = assetsData.filter((asset)=>asset["id"] !== id);
+    dispatch(setAssetsData(updatedAssets));
+  }
   // prepare columns for Data Grid Table
   const assetsColumns:AssetsColumnType[] = [
     {
@@ -41,9 +53,21 @@ export const Assets = () => {
     {
       field: "assetType",
       headerName: "Type",
-      width: 150
+      width: 150,
     },
+    {field: "actions",
+    headerName: "Actions",
+    type:"actions",
+    width: 150,
+     getActions: (params) => [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={()=>handleDelete(String(params.id))}
+    />]
+    }
   ]
+
   // fetch data from Firebase when the component mounts
   useEffect(()=>{
     const fetchData = async() => {

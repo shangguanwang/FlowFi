@@ -7,6 +7,7 @@ export interface RootState {
 
 // Define an interface for the assetFormData object
 export interface AssetsFormType {
+    id?:string;
     assetName: string;
     assetAmount: number;
     assetType: string;

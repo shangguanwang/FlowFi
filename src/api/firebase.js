@@ -1,4 +1,10 @@
-import { doc, collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "./config.js";
 
 /**
@@ -6,7 +12,7 @@ import { db } from "./config.js";
  * @param {assetName, assetAmount, assetType} formData
  */
 export async function addAssetsData({ assetName, assetAmount, assetType }) {
-  const userDocRef = doc(db, "users", "testuser")
+  const userDocRef = doc(db, "users", "testuser");
   const assetsCollectionRef = collection(userDocRef, "assets");
   return addDoc(assetsCollectionRef, {
     dateCreated: new Date(),
@@ -31,3 +37,13 @@ export async function getData(collectionName) {
   });
   return data;
 }
+
+export const deleteData = async (id, collectionName) => {
+  try {
+    // delete data from firebase
+    const docRef = doc(db, "users", "testuser", collectionName, id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error("Error deleting asset:", error);
+  }
+};
