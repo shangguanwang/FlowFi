@@ -47,7 +47,7 @@ export const Assets = () => {
   // fetch data from Firebase when the component mounts
   useEffect(()=>{
     const fetchData = async() => {
-      const data: AssetsFormType[] = await getData();
+      const data: AssetsFormType[] = await getData("assets");
       const formattedData: AssetsFormType[] = data.map((item)=>({
         ...item,
         assetAmount: Number(item.assetAmount), // ensure Amount has type number

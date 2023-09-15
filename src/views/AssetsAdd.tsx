@@ -2,7 +2,7 @@ import React, { useState }  from 'react'
 import './AssetsAdd.styles.scss'
 import { AssetsFormType } from '../state/types'
 import { useNavigate } from 'react-router-dom';
-import { addData } from '../api/firebase'
+import { addAssetsData } from '../api/firebase'
 
 // Import MUI 
 import { InputLabel } from '@mui/material';
@@ -31,7 +31,7 @@ export const AssetsAdd = () => {
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-          await addData(formData);
+          await addAssetsData(formData);
           
         } catch(error){
           console.log(error);
