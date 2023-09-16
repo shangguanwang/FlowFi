@@ -9,7 +9,7 @@ import {
 import { db } from "./config.js";
 
 /**
- * Add a new asset to the user's list in Firestore
+ * Add a new asset to the user's Asset list in Firestore
  * @param {assetName, assetAmount, assetType} formData
  */
 export async function addAssetsData({ assetName, assetAmount, assetType }) {
@@ -22,6 +22,23 @@ export async function addAssetsData({ assetName, assetAmount, assetType }) {
     assetType: assetType,
   });
 }
+
+/**
+ * Add a new asset to the user's Debt list in Firestore
+ * @param {debtName, debtAmount, debtType, debtApr} formData
+ */
+export async function addDebtData({ debtName, debtAmount, debtType, debtApr }) {
+  const userDocRef = doc(db, "users", "testuser");
+  const debtCollectionRef = collection(userDocRef, "debt");
+  return addDoc(debtCollectionRef, {
+    dateCreated: new Date(),
+    debtName: debtName,
+    debtAmount: debtAmount,
+    debtType: debtType,
+    debtApr: debtApr,
+  });
+}
+
 /** Get Data from user's list in Firestore
  * @param {collectionName} === "assets", "debts"
  * @returns {[{assetName, assetAmount, assetType, id},...]}

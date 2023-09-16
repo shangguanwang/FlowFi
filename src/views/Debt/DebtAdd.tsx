@@ -6,6 +6,7 @@ import FormRow from '../../components/FormRow';
 import { DebtFormType } from '../../state/types';
 // import MUI
 import { InputLabel } from '@mui/material';
+import { addDebtData } from '../../api';
 
 const DebtAdd = () => {
     const [formData, setFormData] = useState<DebtFormType>({
@@ -27,7 +28,7 @@ const DebtAdd = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            //await addAssetsData(formData);
+            await addDebtData(formData);
           
         } catch(error){
             console.log(error);
