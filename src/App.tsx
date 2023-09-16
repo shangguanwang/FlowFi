@@ -4,6 +4,7 @@ import './App.css';
 import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing, Register} from './views';
 import AssetsEdit from './views/AssetsEdit';
 import DebtAdd from './views/Debt/DebtAdd';
+import DebtEdit from './views/Debt/DebtEdit';
 
 function App() {
   //const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn); // comment out for now
@@ -22,6 +23,7 @@ function App() {
               <Route path="/assets/edit/:id" element={<AssetsEdit />}/>
               <Route path="/debt" element={<Debt/>}/>
               <Route path="debt/add" element={<DebtAdd />}/>
+              <Route path="debt/edit/:id" element={<DebtEdit />}/>
               <Route path="/income" element={<Income/>}/>
               <Route path="/expenses" element={<Expenses/>}/>
           </Route>):

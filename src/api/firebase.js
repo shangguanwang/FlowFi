@@ -64,12 +64,31 @@ export const deleteData = async (id, collectionName) => {
   }
 };
 
-export const updateData = async (id, collectionName, newData) => {
+export const updateAssetData = async (id, newData) => {
   try {
-    const docRef = doc(db, "users", "testuser", collectionName, id);
+    const docRef = doc(db, "users", "testuser", "assets", id);
     //update the existing row with new data
-    return updateDoc(docRef, newData);
+    return updateDoc(docRef, {
+      assetName: newData.assetName,
+      assetAmount: newData.assetAmount,
+      assetType: newData.assetType,
+    });
   } catch (error) {
     console.error("Error updating asset:", error);
+  }
+}
+
+export const updateDebtData = async (id, newData) => {
+  try {
+    const docRef = doc(db, "users", "testuser", "debt", id);
+    //update the existing row with new data
+    return updateDoc(docRef, {
+      debtName: newData.debtName,
+      debtAmount: newData.debtAmount,
+      debtType: newData.debtType,
+      debtApr: newData.debtApr,
+    });
+  } catch (error) {
+    console.error("Error updating debt:", error);
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { AssetsFormType } from '../state/types';
-import { updateData } from '../api';
+import { updateAssetData } from '../api';
 // Import MUI 
 import { Button, InputLabel } from '@mui/material';
 // Import Components
@@ -30,7 +30,6 @@ const AssetsEdit: React.FC<AssetsEditProps> = () => {
             [name]:value,
             }))
     }
-    // useNavigate() redirects users back to Assets page upon successful form submission
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const AssetsEdit: React.FC<AssetsEditProps> = () => {
          e.preventDefault();
         try {
             // update the data in firebase
-            updateData(id, "assets", formData);
+            updateAssetData(id, formData);
             // update the table on Assets page
             const updatedAssetsData:AssetsFormType[] = assetsData.map((asset)=>asset["id"] === id?formData:asset)
             dispatch(setAssetsData(updatedAssetsData))
