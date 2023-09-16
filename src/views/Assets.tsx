@@ -1,28 +1,20 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getData, deleteData } from '../api/firebase';
-import { AssetsFormType} from '../state/types';
+import { AssetsFormType, DatagridColumnType} from '../state/types';
 import {calculateAssetTotal} from '../components/functions/functions';
-
+// import components
+import AddButton from '../components/layout/AddButton';
 //import redux
 import { RootState } from '../redux/store';
 import { setAssetsData } from '../redux/assetsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 //import MUI
 import Box from '@mui/material/Box';
-import { DataGrid, GridCellParams, GridActionsCellItem, GridRowParams} from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridActionsCellItem} from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-interface AssetsColumnType{
-  field:string;
-  headerName:string;
-  width: number;
-  renderCell?:(params:GridCellParams)=>string;
-  type?: string;
-  editable?: boolean;
-  getActions?: (params: GridRowParams) => JSX.Element[];
-}
 
 export const Assets = () => {
   const dispatch = useDispatch();
@@ -48,25 +40,22 @@ export const Assets = () => {
   }
 
   // prepare columns for Data Grid Table
-  const assetsColumns:AssetsColumnType[] = [
+  const assetsColumns:DatagridColumnType[] = [
     {
       field: "assetName",
       headerName: "Name",
       width: 150,
-      editable: true,
     },
     {
       field: "assetAmount",
       headerName: "Amount",
       width: 150,
-      editable: true,
       renderCell: (params: GridCellParams)=> `$${params.value}`, //add a dollar sign
     },
     {
       field: "assetType",
       headerName: "Type",
       width: 150,
-      editable: true,
     },
     {field: "actions",
     headerName: "Actions",
@@ -107,9 +96,7 @@ export const Assets = () => {
   return (
     <div className="subpage">
       <h1>Assets</h1>
-      <Link to="/assets/add">
-        <button>+ Add Asset</button>
-      </Link>
+      <AddButton linkurl="/assets/add" btntxt="Add Asset" />
       <p>Net Assets: ${totalAmount}</p> 
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
         <DataGrid autoHeight rows={assetsData} columns={assetsColumns} hideFooter={true}/>

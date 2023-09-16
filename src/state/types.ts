@@ -5,13 +5,32 @@ export interface RootState {
   };
 }
 
-// Define an interface for the assetFormData object
+// Define an interface for the data grid columns
+import { GridCellParams, GridRowParams} from '@mui/x-data-grid';
+export interface DatagridColumnType{
+  field:string;
+  headerName:string;
+  width: number;
+  renderCell?:(params:GridCellParams)=>string;
+  type?: string;
+  getActions?: (params: GridRowParams) => JSX.Element[];
+}
+
+// interface for the assetFormData object
 export interface AssetsFormType {
     id?:string;
     assetName: string;
     assetAmount: number;
     assetType: string;
   }
+// interface for the debtFormData object
+export interface DebtFormType {
+  id?:string;
+  debtName: string;
+  debtAmount: number;
+  debtType: string;
+  debtApr: number;
+}
 
   // user info
 export interface userInfoType {

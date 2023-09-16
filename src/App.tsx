@@ -5,6 +5,7 @@ import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing, Regist
 import { useSelector } from 'react-redux';
 import { RootState } from './state/types';
 import AssetsEdit from './views/AssetsEdit';
+import DebtAdd from './views/Debt/DebtAdd';
 
 function App() {
   const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn);
@@ -22,6 +23,7 @@ function App() {
               <Route path="/assets/add" element={<AssetsAdd />}/>
               <Route path="/assets/edit/:id" element={<AssetsEdit />}/>
               <Route path="/debt" element={<Debt/>}/>
+              <Route path="debt/add" element={<DebtAdd />}/>
               <Route path="/income" element={<Income/>}/>
               <Route path="/expenses" element={<Expenses/>}/>
           </Route>):
