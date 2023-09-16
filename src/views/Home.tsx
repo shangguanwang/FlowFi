@@ -14,7 +14,7 @@ export const Home = () => {
             <h1>Welcome, Cocoa</h1>
         </header>
         <main>
-          <NumberCard totalAssets={totalAssets}/>
+          <NumberCard label="Net Worth" num={totalAssets}/>
           <PieCharts />
         </main>
     </div>

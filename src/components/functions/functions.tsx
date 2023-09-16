@@ -1,6 +1,10 @@
-import { AssetsFormType } from '../../state/types'
+import { AssetsFormType, DebtFormType } from '../../state/types'
 
-export const calculateAssetTotal = (data:AssetsFormType[]) => data.reduce((acc, item)=> acc+item.assetAmount,0)
+export const calculateAssetTotal = (data:AssetsFormType[]) => data.reduce((acc, item)=> acc+item.assetAmount,0);
+
+export const calculateDebtTotal = (data:DebtFormType[]) => data.reduce((acc,item)=> acc+item.debtAmount,0);
+
+export const calcMonthlyIntTotal = (data:DebtFormType[])=>Number(data.reduce((acc,item)=>acc+(item.debtAmount*(item.debtApr/1200)),0).toFixed(2));
 
 // Email format validation
 export const isValidEmail = (email:string) => {

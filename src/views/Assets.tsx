@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams, GridActionsCellItem} from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import NumberCard from '../components/layout/NumberCard';
 
 
 export const Assets = () => {
@@ -96,11 +97,11 @@ export const Assets = () => {
   return (
     <div className="subpage">
       <h1>Assets</h1>
-      <AddButton linkurl="/assets/add" btntxt="Add Asset" />
-      <p>Net Assets: ${totalAmount}</p> 
+      <NumberCard label="Total Assets" num={totalAmount} />
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
         <DataGrid autoHeight rows={assetsData} columns={assetsColumns} hideFooter={true}/>
       </Box>
+      <AddButton linkurl="/assets/add" btntxt="Add Asset" />
     </div>
   )
 }
