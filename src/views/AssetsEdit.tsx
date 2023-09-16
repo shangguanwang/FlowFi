@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { AssetsFormType } from '../state/types';
-import { editData } from '../api';
+import { updateData } from '../api';
 // Import MUI 
 import { Button, InputLabel } from '@mui/material';
 // Import Components
@@ -40,7 +40,7 @@ const AssetsEdit: React.FC<AssetsEditProps> = () => {
          e.preventDefault();
         try {
             // update the data in firebase
-            editData(id, "assets", formData);
+            updateData(id, "assets", formData);
             // update the table on Assets page
             const updatedAssetsData:AssetsFormType[] = assetsData.map((asset)=>asset["id"] === id?formData:asset)
             dispatch(setAssetsData(updatedAssetsData))

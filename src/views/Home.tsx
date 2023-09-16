@@ -1,20 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import NumberCard from '../components/layout/NumberCard';
 import PieCharts from '../components/charts/PieCharts';
-import { calculateAssetTotal } from '../components/functions/functions';
+import NetWorthCard from '../components/layout/NetWorthCard';
 
 export const Home = () => {
-  const assetsData = useSelector((store: RootState)=>store.assets);
-  const totalAssets = calculateAssetTotal(assetsData);
+
   return (
     <div className="subpage">
         <header>
             <h1>Welcome, Cocoa</h1>
         </header>
         <main>
-          <NumberCard label="Net Worth" num={totalAssets}/>
+          <NetWorthCard />
           <PieCharts />
         </main>
     </div>

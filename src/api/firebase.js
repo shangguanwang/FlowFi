@@ -4,7 +4,7 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
-  setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./config.js";
 
@@ -16,7 +16,6 @@ export async function addAssetsData({ assetName, assetAmount, assetType }) {
   const userDocRef = doc(db, "users", "testuser");
   const assetsCollectionRef = collection(userDocRef, "assets");
   return addDoc(assetsCollectionRef, {
-    dateCreated: new Date(),
     assetName: assetName,
     assetAmount: assetAmount,
     assetType: assetType,
@@ -31,7 +30,6 @@ export async function addDebtData({ debtName, debtAmount, debtType, debtApr }) {
   const userDocRef = doc(db, "users", "testuser");
   const debtCollectionRef = collection(userDocRef, "debt");
   return addDoc(debtCollectionRef, {
-    dateCreated: new Date(),
     debtName: debtName,
     debtAmount: debtAmount,
     debtType: debtType,
@@ -66,10 +64,11 @@ export const deleteData = async (id, collectionName) => {
   }
 };
 
-export const editData = async (id, collectionName, newData) => {
+export const updateData = async (id, collectionName, newData) => {
   try {
     const docRef = doc(db, "users", "testuser", collectionName, id);
-    await setDoc(docRef, newData, {merge:true}); //update the existing row with new data
+    //update the existing row with new data
+    return updateDoc(docRef, newData);
   } catch (error) {
     console.error("Error updating asset:", error);
   }

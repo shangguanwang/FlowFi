@@ -2,14 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import {Layout, Home, Assets, Debt, Income, Expenses, AssetsAdd, Landing, Register} from './views';
-import { useSelector } from 'react-redux';
-import { RootState } from './state/types';
 import AssetsEdit from './views/AssetsEdit';
 import DebtAdd from './views/Debt/DebtAdd';
 
 function App() {
-  const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn);
-
+  //const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn); // comment out for now
+  const isLoggedIn = true;
   return (
     <div className="App">
       <Router>
