@@ -33,7 +33,6 @@ export const AssetsAdd = () => {
         e.preventDefault();
         try {
           await addAssetsData(formData);
-          
         } catch(error){
           console.log(error);
         }

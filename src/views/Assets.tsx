@@ -20,9 +20,9 @@ import NumberCard from '../components/layout/NumberCard';
 export const Assets = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const assetsData = useSelector((store: RootState)=>store.assets);
+  const assetsData:AssetsFormType[] = useSelector((store: RootState)=>store.assets);
   //calculate assets total
-  const totalAmount = calculateAssetTotal(assetsData);
+  const totalAmount:number = calculateAssetTotal(assetsData);
 
   //define a delete function
   const handleDelete = (id:string) => {

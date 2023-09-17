@@ -29,9 +29,9 @@ export const Layout = () => {
                             <AccountBalanceIcon />
                             Debt
                         </NavLink>
-                        <NavLink to="/income" className="Nav-link">
+                        <NavLink to="/goals" className="Nav-link">
                             <MonetizationOnIcon />
-                            Income
+                            Goals
                         </NavLink>
                         <NavLink to="/expenses" className="Nav-link">
                             <AccountBalanceWalletIcon />

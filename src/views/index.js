@@ -5,5 +5,5 @@ export * from "./Home";
 export * from "./Assets";
 export * from "./AssetsAdd";
 export * from "./Debt/Debt";
-export * from "./Income";
+export * from "./Goals/Goals";
 export * from "./Expenses";

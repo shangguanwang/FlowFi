@@ -32,6 +32,13 @@ export interface DebtFormType {
   debtApr: number;
 }
 
+// interface for the goalsFormData object
+export interface GoalFormType{
+  id?:string;
+  Name: string;
+  Amount: number;
+  Due: Date;
+}
   // user info
 export interface userInfoType {
   email: string;
