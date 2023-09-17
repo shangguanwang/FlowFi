@@ -105,3 +105,18 @@ export const updateDebtData = async (id, newData) => {
     console.error("Error updating debt:", error);
   }
 }
+
+export const updateGoalsData = async (id, newData) => {
+  try {
+    const docRef = doc(db, "users", "testuser", "goals", id);
+    //update the existing row with new data
+    return updateDoc(docRef, {
+      Name: newData.Name,
+      Amount: newData.Amount,
+      Saved: newData.Saved,
+      Due: newData.Due,
+    });
+  } catch (error) {
+    console.error("Error updating goal:", error);
+  }
+}

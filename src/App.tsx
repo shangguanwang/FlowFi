@@ -6,6 +6,7 @@ import AssetsEdit from './views/AssetsEdit';
 import DebtAdd from './views/Debt/DebtAdd';
 import DebtEdit from './views/Debt/DebtEdit';
 import GoalsAdd from './views/Goals/GoalsAdd';
+import GoalsEdit from './views/Goals/GoalsEdit';
 
 function App() {
   //const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn); // comment out for now
@@ -27,6 +28,7 @@ function App() {
               <Route path="debt/edit/:id" element={<DebtEdit />}/>
               <Route path="/goals" element={<Goals/>}/>
               <Route path="/goals/add" element={<GoalsAdd />}/>
+              <Route path="goals/edit/:id" element={<GoalsEdit/>}/> 
               <Route path="/expenses" element={<Expenses/>}/>
           </Route>):
           (<>
