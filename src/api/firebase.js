@@ -40,12 +40,13 @@ export async function addDebtData({ Name, Amount, debtType, debtApr }) {
  * Add a new asset to the user's Goals list in Firestore
  * @param {Name, Amount, Due} formData
  */
-export async function addGoalsData({ Name, Amount, Due }) {
+export async function addGoalsData({ Name, Amount, Due, Saved }) {
   const userDocRef = doc(db, "users", "testuser");
   const assetsCollectionRef = collection(userDocRef, "goals");
   return addDoc(assetsCollectionRef, {
     Name: Name,
     Amount: Amount,
+    Saved: Saved,
     Due: Due,
   });
 }

@@ -37,6 +37,7 @@ export interface GoalFormType{
   id?:string;
   Name: string;
   Amount: number;
+  Saved: number;
   Due: Date;
 }
   // user info

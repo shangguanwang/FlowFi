@@ -10,6 +10,7 @@ const GoalsAdd = () => {
     const [formData, setFormData] = useState<GoalFormType>({
         Name: '',
         Amount: 0,
+        Saved: 0,
         Due: new Date(),
       })
 

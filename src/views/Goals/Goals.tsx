@@ -46,6 +46,12 @@ export const Goals = () => {
       renderCell: (params: GridCellParams)=> `$${params.value}`, //add a dollar sign
     },
     {
+      field: "Saved",
+      headerName: "Saved So Far",
+      width: 150,
+      renderCell: (params: GridCellParams)=> `$${params.value}`, 
+    },
+    {
       field: "Due",
       headerName: "Due Date",
       width: 150,
@@ -87,7 +93,7 @@ export const Goals = () => {
   return (
     <div className="subpage">
       <h1>Goals</h1>
-      <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
+      <Box mt="1rem" p="0 0.5rem" sx={{ width: '50%'}}>
         <DataGrid autoHeight rows={goalsData} columns={goalsColumns} hideFooter={true}/>
       </Box>
       <AddButton linkurl="/goals/add" btntxt="Add Goal" />
