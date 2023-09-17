@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getData, deleteData } from '../api/firebase';
 import { AssetsFormType, DatagridColumnType} from '../state/types';
-import {calculateAssetTotal} from '../components/functions/functions';
+import {calcAmountTotal} from '../components/functions/functions';
 // import components
 import AddButton from '../components/layout/AddButton';
 //import redux
-import { RootState } from '../redux/store';
+import type { RootState } from '../redux/store';
 import { setAssetsData } from '../redux/assetsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 //import MUI
@@ -22,7 +22,7 @@ export const Assets = () => {
   const navigate = useNavigate();
   const assetsData:AssetsFormType[] = useSelector((store: RootState)=>store.assets);
   //calculate assets total
-  const totalAmount:number = calculateAssetTotal(assetsData);
+  const totalAmount:number = calcAmountTotal<AssetsFormType>(assetsData);
 
   //define a delete function
   const handleDelete = (id:string) => {
@@ -96,7 +96,7 @@ export const Assets = () => {
 
   return (
     <div className="subpage">
-      <h1>Assets</h1>
+      <h1 className="text-4xl font-bold m-4">Assets</h1>
       <NumberCard label="Total Assets" num={totalAmount} />
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '40%'}}>
         <DataGrid autoHeight rows={assetsData} columns={assetsColumns} hideFooter={true}/>

@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { calculateAssetTotal, calculateDebtTotal } from '../../components/functions/functions';
+import { calcAmountTotal } from '../../components/functions/functions';
+import { AssetsFormType, DebtFormType } from '../../state/types';
 import { Card, CardContent, Typography } from '@mui/material';
 
 const NetWorthCard = () => {
     const assetsData = useSelector((store: RootState)=>store.assets);
-    const totalAssets = calculateAssetTotal(assetsData);
+    const totalAssets = calcAmountTotal<AssetsFormType>(assetsData);
     const debtData = useSelector((store: RootState)=>store.debt);
-    const totalDebt = calculateDebtTotal(debtData);
+    const totalDebt = calcAmountTotal<DebtFormType>(debtData);
     const networth = totalAssets - totalDebt;
     const debtAssetRatio = Math.round(totalDebt/totalAssets*100);
     return (

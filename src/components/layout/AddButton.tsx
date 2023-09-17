@@ -10,9 +10,11 @@ interface AddBtnProps {
 
 const AddButton:React.FC<AddBtnProps> = ({linkurl, btntxt}) => {
   return (
-    <Link to={linkurl}>
-    <Button startIcon={<AddIcon/>} variant="outlined">{btntxt}</Button>
-  </Link>
+    <div className="mt-3">
+      <Link to={linkurl}>
+        <Button startIcon={<AddIcon/>} variant="outlined">{btntxt}</Button>
+      </Link>
+  </div>
   )
 }
 

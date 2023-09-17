@@ -16,7 +16,9 @@ FlowFi is a personal financial planner that allows users to monitor their financ
 
 Frontend:
 
-- React, TypeScript, Redux, Material UI
+- React, TypeScript, Redux
+- Component Libraries: Material UI, Recharts, Flowbite
+- Styling: Tailwind CSS
 
 Backend:
 

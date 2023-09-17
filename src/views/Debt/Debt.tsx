@@ -9,9 +9,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 // import components
 import AddButton from '../../components/layout/AddButton';
-import { calculateDebtTotal, calcMonthlyIntTotal } from '../../components/functions/functions';
+// import functions
+import { calcAmountTotal, calcMonthlyIntTotal } from '../../components/functions/functions';
 // import redux
-import { RootState } from '../../redux/store';
+import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDebtData } from '../../redux/debtSlice';
 import NumberCard from '../../components/layout/NumberCard';
@@ -22,7 +23,7 @@ export const Debt = () => {
   const navigate = useNavigate();
   const debtData = useSelector((store: RootState)=>store.debt);
   // Calculation
-  const totalAmount = calculateDebtTotal(debtData);
+  const totalAmount:number = calcAmountTotal<DebtFormType>(debtData);
   const totalMonthlyInterest = calcMonthlyIntTotal(debtData);
   //define a delete function
   const handleDelete = (id:string) => {
@@ -98,9 +99,11 @@ export const Debt = () => {
 
   return (
     <div className="subpage">
-      <h1>Debt</h1>
-      <NumberCard label="Total Debt" num={totalAmount} />
-      <NumberCard label="Monthly Payment" num={totalMonthlyInterest} />
+      <h1 className="text-4xl font-bold m-4">Debt</h1>
+      <div className="flex space-x-6">
+        <NumberCard label="Total Debt" num={totalAmount} />
+        <NumberCard label="Monthly Payment" num={totalMonthlyInterest} />
+      </div>
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '50%'}}>
         <DataGrid autoHeight rows={debtData} columns={debtColumns} hideFooter={true}/>
       </Box>

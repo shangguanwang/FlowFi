@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddButton from '../../components/layout/AddButton';
+import NumberCard from '../../components/layout/NumberCard';
 import { getData, deleteData } from '../../api/firebase';
 import { DatagridColumnType, GoalFormType } from '../../state/types';
 //import redux
-import { RootState } from '../../redux/store';
+import type { RootState } from '../../redux/store';
 import { setGoalsData } from '../../redux/goalsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 //import MUI
@@ -12,12 +13,17 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridCellParams, GridActionsCellItem} from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+// import functions
+import { calcAmountTotal, calcSavedTotal } from '../../components/functions/functions';
 
 export const Goals = () => {
   const goalsData: GoalFormType[] = useSelector((store: RootState)=>store.goals);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // calculation
+  const totalAmount:number = calcAmountTotal<GoalFormType>(goalsData);
+  const totalSaved:number = calcSavedTotal(goalsData);
+  const totalToGo:number = totalAmount - totalSaved;
   //define a delete function
   const handleDelete = (id:string) => {
     deleteData(id, "goals");
@@ -92,7 +98,12 @@ export const Goals = () => {
 
   return (
     <div className="subpage">
-      <h1>Goals</h1>
+      <h1 className="text-4xl font-bold m-4">Goals</h1>
+      <div className="flex space-x-6">
+      <NumberCard label="Total Needed" num={totalAmount} /> 
+      <NumberCard label="Total Saved" num={totalSaved} />
+      <NumberCard label="To Go" num={totalToGo} /> 
+      </div>
       <Box mt="1rem" p="0 0.5rem" sx={{ width: '50%'}}>
         <DataGrid autoHeight rows={goalsData} columns={goalsColumns} hideFooter={true}/>
       </Box>
