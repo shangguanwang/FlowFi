@@ -19,15 +19,15 @@ export interface DatagridColumnType{
 // interface for the assetFormData object
 export interface AssetsFormType {
     id?:string;
-    assetName: string;
-    assetAmount: number;
+    Name: string;
+    Amount: number;
     assetType: string;
   }
 // interface for the debtFormData object
 export interface DebtFormType {
   id?:string;
-  debtName: string;
-  debtAmount: number;
+  Name: string;
+  Amount: number;
   debtType: string;
   debtApr: number;
 }

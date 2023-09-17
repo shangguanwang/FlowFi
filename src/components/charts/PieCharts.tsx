@@ -1,23 +1,24 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { RootState } from '../../redux/store';
 
-interface pieDataType{
-  name:string;
-  value:number;
-  fill:string;
+
+type OriginalDataType = {
+  Name: string;
+  Amount: number;
+}
+type PieChartsProps = {
+  originalData: OriginalDataType[];
+  title: string;
 }
 
 const colors = ['#2B0B3F', '#57167E', '#9B3192', '#EA5F89', '#F7B7A3', '#FFF1C9'];
 
 // takes a data prop which is an array of objects with key name and value
-const PieCharts = () => {
-  const assetsData = useSelector((store: RootState)=>store.assets);
-  const chartData = assetsData.map((item,index)=>({name:item['assetName'], value:item['assetAmount'], fill:colors[index]}));
-  
+const PieCharts:React.FC<PieChartsProps> = ({originalData, title}) => {
+  const chartData = originalData.map((item,index)=>({name:item['Name'], value:item['Amount'], fill:colors[index]}));
   return (
     <>
+    <h3>{title}</h3>
     <ResponsiveContainer width={700} height={500} >
     <PieChart width={400} height={400}>
       <Pie

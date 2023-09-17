@@ -43,12 +43,12 @@ export const Assets = () => {
   // prepare columns for Data Grid Table
   const assetsColumns:DatagridColumnType[] = [
     {
-      field: "assetName",
+      field: "Name",
       headerName: "Name",
       width: 150,
     },
     {
-      field: "assetAmount",
+      field: "Amount",
       headerName: "Amount",
       width: 150,
       renderCell: (params: GridCellParams)=> `$${params.value}`, //add a dollar sign
@@ -86,7 +86,7 @@ export const Assets = () => {
       const data: AssetsFormType[] = await getData("assets");
       const formattedData: AssetsFormType[] = data.map((item)=>({
         ...item,
-        assetAmount: Number(item.assetAmount), // ensure Amount has type number
+        assetAmount: Number(item.Amount), // ensure Amount has type number
       }))
       //setAssetsData(formattedData);
       dispatch(setAssetsData(formattedData));

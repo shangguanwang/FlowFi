@@ -41,12 +41,12 @@ export const Debt = () => {
   }
   const debtColumns:DatagridColumnType[] = [
     {
-      field: "debtName",
+      field: "Name",
       headerName: "Name",
       width: 150,
     },
     {
-      field: "debtAmount",
+      field: "Amount",
       headerName: "Amount",
       width: 150,
       renderCell: (params: GridCellParams)=> `$${params.value}`, //add a dollar sign
@@ -88,7 +88,7 @@ export const Debt = () => {
       const data: DebtFormType[] = await getData("debt");
       const formattedData: DebtFormType[] = data.map((item)=>({
         ...item,
-        debtAmount: Number(item.debtAmount), // ensure Amount has type number
+        Amount: Number(item.Amount), // ensure Amount has type number
         debtApr: Number(item.debtApr),
       }))
       dispatch(setDebtData(formattedData));

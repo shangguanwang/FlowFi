@@ -24,10 +24,10 @@ const AssetsEdit: React.FC<AssetsEditProps> = () => {
     
     // handleEdit() function updates formData as we receive user input
     const handleEdit =(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
+        const {name, value, type} = e.target;
         setFormData(prevData => ({
             ...prevData,
-            [name]:value,
+            [name]: type==='number'?parseFloat(value):value,
             }))
     }
     const navigate = useNavigate();
@@ -58,8 +58,8 @@ const AssetsEdit: React.FC<AssetsEditProps> = () => {
         <div className="subpage">
         <h1>Edit Assets</h1>
         <form className="Assets-form" onSubmit={handleSubmit}>
-          <FormRow type="text" name="assetName" value={formData.assetName} handleChange={handleEdit} textLabel="Name"/>   
-          <FormRow type="number" name="assetAmount" value={formData.assetAmount} handleChange={handleEdit} textLabel="Amount"/>
+          <FormRow type="text" name="Name" value={formData.Name} handleChange={handleEdit} textLabel="Name"/>   
+          <FormRow type="number" name="Amount" value={formData.Amount} handleChange={handleEdit} textLabel="Amount"/>
     
             <InputLabel htmlFor="assetType" shrink={false}>Type</InputLabel>
             <select id="assetType" name="assetType"

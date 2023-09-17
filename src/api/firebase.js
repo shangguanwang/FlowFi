@@ -10,28 +10,28 @@ import { db } from "./config.js";
 
 /**
  * Add a new asset to the user's Asset list in Firestore
- * @param {assetName, assetAmount, assetType} formData
+ * @param {Name, Amount, assetType} formData
  */
-export async function addAssetsData({ assetName, assetAmount, assetType }) {
+export async function addAssetsData({ Name, Amount, assetType }) {
   const userDocRef = doc(db, "users", "testuser");
   const assetsCollectionRef = collection(userDocRef, "assets");
   return addDoc(assetsCollectionRef, {
-    assetName: assetName,
-    assetAmount: assetAmount,
+    Name: Name,
+    Amount: Amount,
     assetType: assetType,
   });
 }
 
 /**
  * Add a new asset to the user's Debt list in Firestore
- * @param {debtName, debtAmount, debtType, debtApr} formData
+ * @param {Name, Amount, debtType, debtApr} formData
  */
-export async function addDebtData({ debtName, debtAmount, debtType, debtApr }) {
+export async function addDebtData({ Name, Amount, debtType, debtApr }) {
   const userDocRef = doc(db, "users", "testuser");
   const debtCollectionRef = collection(userDocRef, "debt");
   return addDoc(debtCollectionRef, {
-    debtName: debtName,
-    debtAmount: debtAmount,
+    Name: Name,
+    Amount: Amount,
     debtType: debtType,
     debtApr: debtApr,
   });
@@ -39,7 +39,6 @@ export async function addDebtData({ debtName, debtAmount, debtType, debtApr }) {
 
 /** Get Data from user's list in Firestore
  * @param {collectionName} === "assets", "debts"
- * @returns {[{assetName, assetAmount, assetType, id},...]}
  */
 export async function getData(collectionName) {
   const collectionRef = collection(db, "users", "testuser", collectionName);
@@ -69,8 +68,8 @@ export const updateAssetData = async (id, newData) => {
     const docRef = doc(db, "users", "testuser", "assets", id);
     //update the existing row with new data
     return updateDoc(docRef, {
-      assetName: newData.assetName,
-      assetAmount: newData.assetAmount,
+      Name: newData.Name,
+      Amount: newData.Amount,
       assetType: newData.assetType,
     });
   } catch (error) {
@@ -83,8 +82,8 @@ export const updateDebtData = async (id, newData) => {
     const docRef = doc(db, "users", "testuser", "debt", id);
     //update the existing row with new data
     return updateDoc(docRef, {
-      debtName: newData.debtName,
-      debtAmount: newData.debtAmount,
+      Name: newData.Name,
+      Amount: newData.Amount,
       debtType: newData.debtType,
       debtApr: newData.debtApr,
     });

@@ -12,16 +12,17 @@ import SubmitButton from '../components/layout/SubmitButton';
 
 export const AssetsAdd = () => {
     const [formData, setFormData] = useState<AssetsFormType>({
-        assetName: '',
-        assetAmount: 0,
+        Name: '',
+        Amount: 0,
         assetType: 'cash', // initialize cash as the default type
       });
       // handleAdd() function updates formData as we receive user input
       const handleAdd =(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
+        const {name, value, type} = e.target;
+        console.log(type);
         setFormData(prevData => ({
           ...prevData,
-          [name]:value,
+          [name]: type==='number'?parseFloat(value):value,
         }))
       }
       // useNavigate() redirects users back to Assets page upon successful form submission
@@ -42,8 +43,8 @@ export const AssetsAdd = () => {
     <div className="subpage">
     <h1>Add Assets</h1>
     <form className="Assets-form" onSubmit={handleSubmit}>
-      <FormRow type="text" name="assetName" value={formData.assetName} handleChange={handleAdd} textLabel="Name"/>   
-      <FormRow type="number" name="assetAmount" value={formData.assetAmount} handleChange={handleAdd} textLabel="Amount"/>
+      <FormRow type="text" name="Name" value={formData.Name} handleChange={handleAdd} textLabel="Name"/>   
+      <FormRow type="number" name="Amount" value={formData.Amount} handleChange={handleAdd} textLabel="Amount"/>
 
         <InputLabel htmlFor="assetType" shrink={false}>Type</InputLabel>
         <select id="assetType" name="assetType"

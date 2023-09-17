@@ -22,10 +22,10 @@ const DebtEdit = () => {
     const debtData = useSelector((store: RootState)=>store.debt);
     // handleEdit() function updates formData as we receive user input
     const handleEdit =(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
+        const {name, value, type} = e.target;
         setFormData(prevData => ({
             ...prevData,
-            [name]:value,
+            [name]:type==='number'?parseFloat(value):value,
             }))
     }
     // handleSubmit() updates data in the database
@@ -52,8 +52,8 @@ const DebtEdit = () => {
     <div className="subpage">
     <h1>Edit Debt</h1>
     <form onSubmit={handleSubmit}>
-        <FormRow type="text" name="debtName" value={formData.debtName} handleChange={handleEdit} textLabel="Name"/>   
-        <FormRow type="number" name="debtAmount" value={formData.debtAmount} handleChange={handleEdit} textLabel="Amount"/>
+        <FormRow type="text" name="Name" value={formData.Name} handleChange={handleEdit} textLabel="Name"/>   
+        <FormRow type="number" name="Amount" value={formData.Amount} handleChange={handleEdit} textLabel="Amount"/>
 
         <InputLabel id="debtType" shrink={false}>Type</InputLabel>
         <select id="debtType" name="debtType"
