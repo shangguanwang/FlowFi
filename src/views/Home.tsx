@@ -7,6 +7,7 @@ import { calcGoalsPct } from '../components/functions/functions';
 import type { RootState } from '../redux/store';
 import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
+import { Button } from '@mui/material';
 
 export const Home = () => {
   const assetsData = useSelector((store: RootState)=>store.assets);
@@ -17,10 +18,15 @@ export const Home = () => {
   const goalsData = useSelector((store: RootState)=>store.goals);
   const savedPct:number = calcGoalsPct(goalsData);
 
+  const handleLogout = ()=> {
+    
+  };
+
   return (
     <div className="subpage">
         <header>
             <h1 className="text-4xl font-bold m-4">Welcome, Cocoa</h1>
+            <Button>Logout</Button>
         </header>
         <main>
           <NetWorthCard />

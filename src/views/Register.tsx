@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+// Import firebase Auth
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 // Import Components
 import { LandingLayout } from '../components/layout/LandingLayout'
 import { isValidEmail } from '../components/functions/functions';
@@ -34,7 +37,7 @@ const initState:newUserType = {
 export const Register = () => {
   const [userInfo, setUserInfo] = useState(initState);
   const [emailError, setEmailError] = useState('');
-
+  const auth = getAuth();
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -42,7 +45,11 @@ export const Register = () => {
       ...oldInfo,
       [name]:value
       })
-    )
+    );
+    createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+    .then((userCredential)=>{
+      const user = userCredential.user;
+    })
   }
 
   const handleSubmit = (e: React.FormEvent) => {

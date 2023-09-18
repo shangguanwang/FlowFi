@@ -7,19 +7,21 @@ import DebtAdd from './views/Debt/DebtAdd';
 import DebtEdit from './views/Debt/DebtEdit';
 import GoalsAdd from './views/Goals/GoalsAdd';
 import GoalsEdit from './views/Goals/GoalsEdit';
+import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
 
 function App() {
-  //const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn); // comment out for now
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn); // comment out for now
+  //const isLoggedIn = false;
+  
   return (
     <div className="App">
       <Router>
         <Routes>
         {/* If the user is loggedin show Layout and its children components,
         otherwise show the landing page */}
-        {isLoggedIn? (
-          <Route path="/" element={<Layout />}>
-              <Route index element={<Home/>}/>
+        {isLoggedIn?(<Route path="/" element={<Layout />}>
+              <Route path="/" element={<Home/>}/>
               <Route path="/assets" element={<Assets/>}/>
               <Route path="/assets/add" element={<AssetsAdd />}/>
               <Route path="/assets/edit/:id" element={<AssetsEdit />}/>
@@ -30,12 +32,13 @@ function App() {
               <Route path="/goals/add" element={<GoalsAdd />}/>
               <Route path="goals/edit/:id" element={<GoalsEdit/>}/> 
               <Route path="/expenses" element={<Expenses/>}/>
-          </Route>):
+            </Route>
+        ):
           (<>
           <Route path="/" element={<Landing />}/>
-            <Route path="/register" element={<Register />}/>
-            </> )
-        }
+          <Route path="/register" element={<Register />}/>
+          </>
+        )}
         </Routes>
       </Router>
     </div>

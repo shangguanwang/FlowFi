@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Landing.scss'
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate  } from 'react-router-dom';
+// Import firebase Auth
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import Components
 import { LandingLayout } from '../components/layout/LandingLayout';
 import { isValidEmail } from '../components/functions/functions';
@@ -22,34 +23,57 @@ import {Visibility,VisibilityOff} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../features/auth/authSlice';
 
+interface UserType {
+    email: string;
+    password: string;
+  };
+const initState:UserType = {
+    email: '',
+    password: '',
+}
+
 export const Landing = () => {
     // Initialize state
-    const [email, setEmail] = useState('');
+    const [userInfo, setUserInfo] = useState(initState);
+    //const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
 
-    // Handle email change
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+    // Handle change
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setUserInfo(oldInfo => ({
+            ...oldInfo,
+            [name]:value
+            })
+          );
     }
 
 
     // useEffect watches for changes in email state and update the emailError state accordingly
     useEffect(() => {
-        if(!isValidEmail(email)){
+        if(!isValidEmail(userInfo.email)){
             setEmailError("Email is invalid")
         }else{
             setEmailError("")
         } //have to have the else state here so the error message disappears when the user types the correct email
-    }, [email])
+    }, [userInfo.email])
 
     // Dispatch
     const dispatch = useDispatch();
     // Submit the email and password
+    const auth = getAuth();
+    const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+        .then((userCredential)=>{
+        const user = userCredential.user;
+        });
         // Once the user clicks login, the Layout page will be displayed
         dispatch(authActions.login());
-    }
+        navigate('/');
+    };
+    
     // show and hide password
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => {
@@ -64,10 +88,10 @@ export const Landing = () => {
     <LandingLayout> 
             <form onSubmit={handleSubmit}>
                 <InputLabel htmlFor="email" shrink={false}>Email</InputLabel>
-                <OutlinedInput id="email" name="email" value={email} onChange={handleEmailChange} fullWidth required/>
-                <FormHelperText error className="helper-text">{email.length > 0 && emailError}</FormHelperText>
+                <OutlinedInput id="email" name="email" value={userInfo.email} onChange={handleChange} fullWidth required/>
+                <FormHelperText error className="helper-text">{userInfo.email.length > 0 && emailError}</FormHelperText>
                 <InputLabel htmlFor="password" shrink={false}>Password </InputLabel>
-                <OutlinedInput id="password" name="password" fullWidth required
+                <OutlinedInput id="password" name="password" value={userInfo.password} onChange={handleChange} fullWidth required
                 type={showPassword? 'text': 'password'}
                 endAdornment={
                     <InputAdornment position="end">
