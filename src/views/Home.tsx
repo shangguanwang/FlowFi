@@ -3,11 +3,14 @@ import PieCharts from '../components/charts/PieCharts';
 import ProgressBar from '../components/charts/ProgressBar';
 import NetWorthCard from '../components/layout/NetWorthCard';
 import { calcGoalsPct } from '../components/functions/functions';
-
 import type { RootState } from '../redux/store';
-import { useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
+
+import { useNavigate  } from 'react-router-dom';
+import { getAuth, signOut } from "firebase/auth";
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions } from '../features/auth/authSlice';
 
 export const Home = () => {
   const assetsData = useSelector((store: RootState)=>store.assets);
@@ -18,15 +21,24 @@ export const Home = () => {
   const goalsData = useSelector((store: RootState)=>store.goals);
   const savedPct:number = calcGoalsPct(goalsData);
 
+  // Log Out
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogout = ()=> {
-    
+    signOut(auth).then(()=>{
+      dispatch(authActions.logout());
+      navigate("/");
+    }).catch((error)=>{
+      console.log(error);
+    });
   };
 
   return (
     <div className="subpage">
         <header>
             <h1 className="text-4xl font-bold m-4">Welcome, Cocoa</h1>
-            <Button>Logout</Button>
+            <Button onClick={handleLogout}>Logout</Button>
         </header>
         <main>
           <NetWorthCard />

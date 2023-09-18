@@ -58,7 +58,6 @@ export const Landing = () => {
         } //have to have the else state here so the error message disappears when the user types the correct email
     }, [userInfo.email])
 
-    // Dispatch
     const dispatch = useDispatch();
     // Submit the email and password
     const auth = getAuth();
