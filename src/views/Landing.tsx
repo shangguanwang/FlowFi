@@ -65,12 +65,14 @@ export const Landing = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-        .then((userCredential)=>{
-        const user = userCredential.user;
+        .then(()=>{
+            // Once the user successfully login, the Layout page will be displayed
+          dispatch(authActions.login());
+          navigate('/');
+        })
+        .catch((error)=>{
+            console.log("Error creating user:", error);
         });
-        // Once the user clicks login, the Layout page will be displayed
-        dispatch(authActions.login());
-        navigate('/');
     };
     
     // show and hide password
